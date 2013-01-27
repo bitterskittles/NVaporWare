@@ -16,10 +16,10 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("NVaporWare")]
+[assembly: AssemblyTitle("NVaporWare.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("NVaporWare")]
+[assembly: AssemblyProduct("NVaporWare.Test")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]

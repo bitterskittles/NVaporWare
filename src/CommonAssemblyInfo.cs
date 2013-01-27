@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CommonAssemblyInfo.cs" company="bitterskittles">
-//   Copyright © bitterskittles 2012
+//   Copyright © 2013 bitterskittles.
 //   This program is free software. It comes without any warranty, to
 //   the extent permitted by applicable law. You can redistribute it
 //   and/or modify it under the terms of the Do What The Fuck You Want
@@ -12,11 +12,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
-
 using System.Reflection;
 
 [assembly: AssemblyCompany("bitterskittles")]
-[assembly: AssemblyCopyright("Copyright © bitterskittles 2012")]
-[assembly: AssemblyVersion("0.0.0.0")]
-[assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: AssemblyCopyright("Copyright © bitterskittles 2013")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]

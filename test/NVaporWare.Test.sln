@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NVaporWare.Test", "NVaporWare.Test\NVaporWare.Test.csproj", "{3FACB940-A2D3-4127-85B0-FB637FFF783E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NVaporWare", "..\src\NVaporWare\NVaporWare.csproj", "{18F81B0B-4C25-4834-A0CA-C421467C705D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FACB940-A2D3-4127-85B0-FB637FFF783E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FACB940-A2D3-4127-85B0-FB637FFF783E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FACB940-A2D3-4127-85B0-FB637FFF783E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FACB940-A2D3-4127-85B0-FB637FFF783E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18F81B0B-4C25-4834-A0CA-C421467C705D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F81B0B-4C25-4834-A0CA-C421467C705D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F81B0B-4C25-4834-A0CA-C421467C705D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F81B0B-4C25-4834-A0CA-C421467C705D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
