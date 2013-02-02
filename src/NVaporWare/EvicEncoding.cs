@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Versions.cs" company="bitterskittles">
+// <copyright file="EvicEncoding.cs" company="bitterskittles">
 //   Copyright © 2013 bitterskittles.
 //   This program is free software. It comes without any warranty, to
 //   the extent permitted by applicable law. You can redistribute it
@@ -8,38 +8,27 @@
 //   http://www.wtfpl.net/ for more details.
 // </copyright>
 // <summary>
-//   Defines the Versions type.
+//   Defines the EvicEncoding type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace NVaporWare
 {
-    using System;
+    using System.Text;
 
-    // TODO: Move these into a xml
-    public static class Versions
+    public class EvicEncoding : ASCIIEncoding
     {
-        #region Static Fields
+        #region Public Methods and Operators
 
-        private static readonly Lazy<FirmwareVersion> evic11 =
-            new Lazy<FirmwareVersion>(
-                () =>
-                new FirmwareVersion(
-                    "1.1", 
-                    new SegmentAddress(0x2B0F, 0x11FE), 
-                    new SegmentAddress(0x3D0D, 0x011F), 
-                    new SegmentAddress(0xECA1, 0x0305)));
-
-        #endregion
-
-        #region Public Properties
-
-        public static FirmwareVersion Evic11
+        public override string GetString(byte[] bytes, int byteIndex, int byteCount)
         {
-            get
+            var clone = new byte[byteCount];
+            for (var i = 0; i < byteCount; i++)
             {
-                return evic11.Value;
+                clone[i] = (byte)(bytes[byteIndex + i] + 0x2F);
             }
+
+            return base.GetString(clone, 0, byteCount);
         }
 
         #endregion

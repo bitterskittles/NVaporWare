@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Image.cs" company="bitterskittles">
+// <copyright file="ISegmentData.cs" company="bitterskittles">
 //   Copyright © 2013 bitterskittles.
 //   This program is free software. It comes without any warranty, to
 //   the extent permitted by applicable law. You can redistribute it
@@ -8,7 +8,7 @@
 //   http://www.wtfpl.net/ for more details.
 // </copyright>
 // <summary>
-//   Defines the Image type.
+//   Defines the ISegmentData type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -16,42 +16,35 @@ namespace NVaporWare
 {
     using System;
     using System.Diagnostics.Contracts;
-    using System.Drawing;
 
-    public class Image
+    [ContractClass(typeof(ISegmentDataContract<>))]
+    public interface ISegmentData<T>
+        where T : class
     {
-        #region Fields
-
-        private readonly Bitmap bitmap;
-
-        private readonly int offset;
-
-        private readonly int size;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        public Image(int offset, Bitmap bitmap)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(offset >= 0);
-            Contract.Requires<ArgumentNullException>(bitmap != null);
-            Contract.Requires<ArgumentOutOfRangeException>(offset + (bitmap.Height * bitmap.Width / 8) - 1 <= 0xFFFF);
-
-            this.offset = offset;
-            this.bitmap = bitmap;
-            this.size = (bitmap.Height * bitmap.Width / 8) + 2;
-        }
-
-        #endregion
-
         #region Public Properties
 
-        public Bitmap Bitmap
+        T Data { get; }
+
+        int Offset { get; }
+
+        int Size { get; }
+
+        #endregion
+    }
+
+    [ContractClassFor(typeof(ISegmentData<>))]
+    public abstract class ISegmentDataContract<T> : ISegmentData<T>
+        where T : class
+    {
+        #region Public Properties
+
+        public T Data
         {
             get
             {
-                return this.bitmap;
+                Contract.Ensures(Contract.Result<T>() != null);
+
+                throw new NotImplementedException();
             }
         }
 
@@ -59,7 +52,10 @@ namespace NVaporWare
         {
             get
             {
-                return this.offset;
+                Contract.Ensures(Contract.Result<int>() >= 0);
+                Contract.Ensures(Contract.Result<int>() <= 0xFFFF);
+
+                throw new NotImplementedException();
             }
         }
 
@@ -67,7 +63,10 @@ namespace NVaporWare
         {
             get
             {
-                return this.size;
+                Contract.Ensures(Contract.Result<int>() >= 0);
+                Contract.Ensures(Contract.Result<int>() + this.Offset - 1 <= 0xFFFF);
+
+                throw new NotImplementedException();
             }
         }
 

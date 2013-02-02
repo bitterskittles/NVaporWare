@@ -22,17 +22,11 @@ namespace NVaporWare
     {
         #region Fields
 
-        private readonly int characterTableLength;
+        private readonly ISegmentAddress characterMap;
 
-        private readonly int characterTableOffset;
+        private readonly ISegmentAddress images;
 
-        private readonly int imagesLength;
-
-        private readonly int imagesOffset;
-
-        private readonly int stringsLength;
-
-        private readonly int stringsOffset;
+        private readonly ISegmentAddress strings;
 
         private readonly string version;
 
@@ -41,104 +35,44 @@ namespace NVaporWare
         #region Constructors and Destructors
 
         public FirmwareVersion(
-            string version, 
-            int imagesOffset, 
-            int imagesLength, 
-            int characterTableOffset, 
-            int characterTableLength, 
-            int stringsOffset, 
-            int stringsLength)
+            string version, ISegmentAddress images, ISegmentAddress characterMap, ISegmentAddress strings)
         {
             Contract.Requires<ArgumentException>(string.IsNullOrEmpty(version) == false);
-            Contract.Requires<ArgumentOutOfRangeException>(imagesOffset > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(imagesOffset <= 0xFFFF);
-            Contract.Requires<ArgumentOutOfRangeException>(imagesLength > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(imagesLength + imagesOffset - 1 <= 0xFFFF);
-            Contract.Requires<ArgumentOutOfRangeException>(characterTableOffset > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(characterTableOffset <= 0xFFFF);
-            Contract.Requires<ArgumentOutOfRangeException>(characterTableLength > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(characterTableLength + characterTableOffset - 1 <= 0xFFFF);
-            Contract.Requires<ArgumentOutOfRangeException>(stringsOffset > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(stringsOffset <= 0xFFFF);
-            Contract.Requires<ArgumentOutOfRangeException>(stringsLength > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(stringsLength + stringsOffset - 1 <= 0xFFFF);
+            Contract.Requires<ArgumentNullException>(images != null);
+            Contract.Requires<ArgumentNullException>(characterMap != null);
+            Contract.Requires<ArgumentNullException>(strings != null);
 
             this.version = version;
-            this.imagesOffset = imagesOffset;
-            this.imagesLength = imagesLength;
-            this.characterTableOffset = characterTableOffset;
-            this.characterTableLength = characterTableLength;
-            this.stringsOffset = stringsOffset;
-            this.stringsLength = stringsLength;
+            this.images = images;
+            this.characterMap = characterMap;
+            this.strings = strings;
         }
 
         #endregion
 
         #region Public Properties
 
-        public int CharacterTableLength
+        public ISegmentAddress CharacterMap
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() > 0);
-                Contract.Ensures(Contract.Result<int>() + this.characterTableOffset - 1 <= 0xFFFF);
-
-                return this.characterTableLength;
+                return this.characterMap;
             }
         }
 
-        public int CharacterTableOffset
+        public ISegmentAddress Images
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() > 0);
-                Contract.Ensures(Contract.Result<int>() <= 0xFFFF);
-
-                return this.characterTableOffset;
+                return this.images;
             }
         }
 
-        public int ImagesLength
+        public ISegmentAddress Strings
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() > 0);
-                Contract.Ensures(Contract.Result<int>() + this.imagesOffset - 1 <= 0xFFFF);
-
-                return this.imagesLength;
-            }
-        }
-
-        public int ImagesOffset
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<int>() > 0);
-                Contract.Ensures(Contract.Result<int>() <= 0xFFFF);
-
-                return this.imagesOffset;
-            }
-        }
-
-        public int StringsLength
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<int>() > 0);
-                Contract.Ensures(Contract.Result<int>() + this.stringsOffset - 1 <= 0xFFFF);
-
-                return this.stringsLength;
-            }
-        }
-
-        public int StringsOffset
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<int>() > 0);
-                Contract.Ensures(Contract.Result<int>() <= 0xFFFF);
-
-                return this.stringsOffset;
+                return this.strings;
             }
         }
 
@@ -160,18 +94,9 @@ namespace NVaporWare
         private void ObjectInvariant()
         {
             Contract.Invariant(string.IsNullOrEmpty(this.version) == false);
-            Contract.Invariant(this.imagesOffset > 0);
-            Contract.Invariant(this.imagesOffset <= 0xFFFF);
-            Contract.Invariant(this.imagesLength > 0);
-            Contract.Invariant(this.imagesLength + this.imagesOffset - 1 <= 0xFFFF);
-            Contract.Invariant(this.characterTableOffset > 0);
-            Contract.Invariant(this.characterTableOffset <= 0xFFFF);
-            Contract.Invariant(this.characterTableLength > 0);
-            Contract.Invariant(this.characterTableLength + this.characterTableOffset - 1 <= 0xFFFF);
-            Contract.Invariant(this.stringsOffset > 0);
-            Contract.Invariant(this.stringsOffset <= 0xFFFF);
-            Contract.Invariant(this.stringsLength > 0);
-            Contract.Invariant(this.stringsLength + this.stringsOffset - 1 <= 0xFFFF);
+            Contract.Invariant(this.images != null);
+            Contract.Invariant(this.characterMap != null);
+            Contract.Invariant(this.strings != null);
         }
 
         #endregion

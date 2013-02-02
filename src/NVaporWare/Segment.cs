@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Images.cs" company="bitterskittles">
+// <copyright file="Segment.cs" company="bitterskittles">
 //   Copyright © 2013 bitterskittles.
 //   This program is free software. It comes without any warranty, to
 //   the extent permitted by applicable law. You can redistribute it
@@ -8,7 +8,7 @@
 //   http://www.wtfpl.net/ for more details.
 // </copyright>
 // <summary>
-//   Defines the Images type.
+//   Defines the Segment type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -20,11 +20,14 @@ namespace NVaporWare
     using System.Diagnostics.Contracts;
     using System.IO;
 
-    public class Images : IEnumerable<Image>
+    public class Segment<T> : ISegment<T>
+        where T : class
     {
         #region Fields
 
-        private readonly FirmwareVersion firmwareVersion;
+        private readonly ISegmentAddress address;
+
+        private readonly IReader<T> reader;
 
         private readonly Stream stream;
 
@@ -32,25 +35,38 @@ namespace NVaporWare
 
         #region Constructors and Destructors
 
-        public Images(Stream stream, FirmwareVersion firmwareVersion)
+        public Segment(Stream stream, ISegmentAddress address, IReader<T> reader)
         {
             Contract.Requires<ArgumentNullException>(stream != null);
             Contract.Requires<ArgumentException>(stream.CanRead);
             Contract.Requires<ArgumentException>(stream.CanSeek);
-            Contract.Requires<ArgumentNullException>(firmwareVersion != null);
+            Contract.Requires<ArgumentNullException>(address != null);
+            Contract.Requires<ArgumentNullException>(reader != null);
 
             this.stream = stream;
-            this.firmwareVersion = firmwareVersion;
+            this.address = address;
+            this.reader = reader;
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        public ISegmentAddress Address
+        {
+            get
+            {
+                return this.address;
+            }
         }
 
         #endregion
 
         #region Public Methods and Operators
 
-        public IEnumerator<Image> GetEnumerator()
+        public IEnumerator<ISegmentData<T>> GetEnumerator()
         {
-            return new ImageEnumerator(
-                this.stream, this.firmwareVersion.ImagesOffset, this.firmwareVersion.ImagesLength);
+            return new SegmentEnumerator<T>(this.stream, this.address, this.reader);
         }
 
         #endregion
@@ -59,8 +75,7 @@ namespace NVaporWare
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new ImageEnumerator(
-                this.stream, this.firmwareVersion.ImagesOffset, this.firmwareVersion.ImagesLength);
+            return this.GetEnumerator();
         }
 
         #endregion
@@ -73,7 +88,8 @@ namespace NVaporWare
             Contract.Invariant(this.stream != null);
             Contract.Invariant(this.stream.CanRead);
             Contract.Invariant(this.stream.CanSeek);
-            Contract.Invariant(this.firmwareVersion != null);
+            Contract.Invariant(this.address != null);
+            Contract.Invariant(this.reader != null);
         }
 
         #endregion

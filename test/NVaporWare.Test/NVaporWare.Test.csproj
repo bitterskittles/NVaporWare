@@ -66,7 +66,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FirmwareTests.cs" />
-    <Compile Include="ImageEnumeratorTests.cs" />
+    <Compile Include="BitmapReaderTests.cs" />
+    <Compile Include="SegmentEnumeratorTests.cs" />
+    <Compile Include="StringReaderTests.cs" />
+    <Compile Include="EvicEncodingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NVaporWare\NVaporWare.csproj">
@@ -83,6 +86,12 @@
       <Link>TestData\Evic11.enc</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\TestData\Evic11_0x2FC1.bmp">
+      <Link>TestData\Evic11_0x2FC1.bmp</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -1,6 +1,12 @@
 NVaporWare
 ==========
 
-NVaporWave is a library that can encrypt and decrypt Joyetech eVic firmware images.
+NVaporWave is a library for manipulating Joyetech eVic firmwares.
 
-Supported versions: eVic firmware v1.0 - v1.1
+Features
+--------
+
+Supported versions: eVic firmware v1.0 - v1.2
+* Firmware file encryption/decryption.
+* Image extraction.
+* String extraction.
