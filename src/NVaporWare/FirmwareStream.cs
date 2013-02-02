@@ -8,9 +8,10 @@
 //   http://www.wtfpl.net/ for more details.
 // </copyright>
 // <summary>
-//   Defines the Stream type.
+//   Defines the FirmwareStream type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace NVaporWare
 {
     using System;
@@ -72,7 +73,7 @@ namespace NVaporWare
             Contract.Requires<ArgumentException>(key.Length == 32);
             Contract.Requires<ArgumentOutOfRangeException>(startOffset >= 0);
             Contract.Requires<ArgumentOutOfRangeException>(startOffset <= stream.Length);
-            
+
             this.stream = stream;
             this.key = (byte[])key.Clone();
             this.startOffset = startOffset;
@@ -129,11 +130,6 @@ namespace NVaporWare
 
                 return this.stream.CanWrite;
             }
-        }
-
-        public byte[] GetKey()
-        {
-            return (byte[])this.key.Clone();
         }
 
         public override long Length
@@ -205,6 +201,11 @@ namespace NVaporWare
             {
                 throw new ObjectDisposedException("BaseStream");
             }
+        }
+
+        public byte[] GetKey()
+        {
+            return (byte[])this.key.Clone();
         }
 
         public override int Read(byte[] buffer, int offset, int count)

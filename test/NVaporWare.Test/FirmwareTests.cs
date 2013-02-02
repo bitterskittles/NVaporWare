@@ -11,6 +11,7 @@
 //   Defines the FirmwareTests type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace NVaporWare.Test
 {
     using System.IO;
@@ -24,40 +25,40 @@ namespace NVaporWare.Test
         #region Public Methods and Operators
 
         [TestMethod]
-        [DeploymentItem(".\\TestData\\code.bin")]
-        [DeploymentItem(".\\TestData\\code.hex")]
+        [DeploymentItem(".\\TestData\\Evic11.enc")]
+        [DeploymentItem(".\\TestData\\Evic11.dec")]
         public void DecryptionTest()
         {
             byte[] actual;
-            using (var encryptedFile = new FileStream("code.bin", FileMode.Open, FileAccess.Read))
-            using (var firmware = new Firmware(encryptedFile))
+            using (var encFileStream = new FileStream("Evic11.enc", FileMode.Open, FileAccess.Read))
+            using (var firmware = new Firmware(encFileStream))
             {
                 actual = new byte[firmware.Stream.Length];
                 firmware.Stream.Read(actual, 0, actual.Length);
             }
 
             byte[] expected;
-            using (var decryptedFile = new FileStream("code.hex", FileMode.Open, FileAccess.Read))
+            using (var decFileStream = new FileStream("Evic11.dec", FileMode.Open, FileAccess.Read))
             {
                 expected = new byte[actual.Length];
-                decryptedFile.Read(expected, 0, expected.Length);
+                decFileStream.Read(expected, 0, expected.Length);
             }
 
             CollectionAssert.AreEquivalent(expected, actual);
         }
 
         [TestMethod]
-        [DeploymentItem(".\\TestData\\code.bin")]
-        [DeploymentItem(".\\TestData\\code.hex")]
+        [DeploymentItem(".\\TestData\\Evic11.enc")]
+        [DeploymentItem(".\\TestData\\Evic11.dec")]
         public void EncryptionTest()
         {
             var key = Encoding.ASCII.GetBytes("20121109joyetechjoyetech20128850");
 
             byte[] actual;
-            using (var decryptedFile = new FileStream("code.hex", FileMode.Open, FileAccess.Read))
+            using (var decFileStream = new FileStream("Evic11.dec", FileMode.Open, FileAccess.Read))
             using (var firmware = new Firmware(key))
             {
-                decryptedFile.CopyTo(firmware.Stream);
+                decFileStream.CopyTo(firmware.Stream);
                 firmware.UpdateHeader();
 
                 actual = new byte[firmware.BaseStream.Length];
@@ -66,10 +67,10 @@ namespace NVaporWare.Test
             }
 
             byte[] expected;
-            using (var encryptedFile = new FileStream("code.bin", FileMode.Open, FileAccess.Read))
+            using (var encFileStream = new FileStream("Evic11.enc", FileMode.Open, FileAccess.Read))
             {
                 expected = new byte[actual.Length];
-                encryptedFile.Read(expected, 0, expected.Length);
+                encFileStream.Read(expected, 0, expected.Length);
             }
 
             CollectionAssert.AreEquivalent(expected, actual);

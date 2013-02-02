@@ -12,9 +12,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+
+
 using System.Reflection;
 
 [assembly: AssemblyCompany("bitterskittles")]
 [assembly: AssemblyCopyright("Copyright © bitterskittles 2013")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.2.0.0")]
+[assembly: AssemblyFileVersion("0.2.0.0")]
