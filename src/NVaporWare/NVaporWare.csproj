@@ -113,11 +113,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -126,6 +121,8 @@
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>Properties\GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="BitmapWriter.cs" />
+    <Compile Include="IWriter.cs" />
     <Compile Include="SegmentData.cs" />
     <Compile Include="ISegmentEnumerator.cs" />
     <Compile Include="SegmentEnumerator.cs" />
