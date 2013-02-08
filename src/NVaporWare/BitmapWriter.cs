@@ -14,7 +14,6 @@
 
 namespace NVaporWare
 {
-    using System.Diagnostics;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
@@ -46,7 +45,6 @@ namespace NVaporWare
                     for (var y = 0; y < bitmap.Height; y++)
                     {
                         var fY = y == 0 || y % 2 == 0 ? y + 1 : y - 1;
-                        Debug.WriteLine((fY * bitmapData.Stride) + x);
                         stream.WriteByte(image[(fY * bitmapData.Stride) + x]);
                     }
                 }
